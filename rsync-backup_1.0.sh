@@ -9,7 +9,7 @@ echo "-----------------------"
 
 #Checking if smb is already mounted
 if mountpoint -q smbdrive ;
-then mount -t cifs -o username=$username,password=$password '\\10.0.0.169\safekeep' /mnt/smbdrive
+then mount -t cifs -o username=$username,password=$password '\\ipv4\dir' /mnt/smbdrive
 else echo "smb share is already mounted"
 fi
 
@@ -22,11 +22,11 @@ if [ -d /mnt/smbdrive/safekeep/kali-backup/$folname ] ;
 then echo "Folder already exists"
      echo "Exiting script"
      exit 1
-else mkdir "/mnt/smbdrive/safekeep/kali-backup/$folname"
+else mkdir "/mnt/smbdrive/dir/backup/$folname"
 fi
 
 echo "Backing up home drive"
 echo "---------------------"
-#rsync -a --info=progress2 /home/.ecryptfs "/mnt/smbdrive/safekeep/kali-backup/$folname"
+rsync -a --info=progress2 /home/.ecryptfs "/mnt/smbdrive/dir/backup/$folname"
 echo "Finished Backing up"
 echo "-------------------"
